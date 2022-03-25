@@ -1,4 +1,3 @@
-Yousef Dawood, [3/25/2022 7:37 PM]
 asgiref==3.5.0
 attrs==21.4.0
 autobahn==22.2.2
