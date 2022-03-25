@@ -23,4 +23,3 @@ Twisted==22.2.0
 txaio==22.2.1
 typing_extensions==4.1.1
 tzdata==2022.1
-zope.interface==5.4.0
