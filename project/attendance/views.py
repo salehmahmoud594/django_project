@@ -27,7 +27,7 @@ def ad_index(request):
 
 
 def process(request):
-	card = request.GET.get('card_id', 'kuch nahi mila')
+	card = request.GET.get('card_id', 'eye plus')
 	users = Student.objects.all()
 	for user in users:
 		if user.card_id == int(card):
@@ -37,23 +37,26 @@ def process(request):
 	new_user.save()
 	return HttpResponse('registered successfully')
 
-
 def attend(user):
+	# if user.name == None:
+	# 	statu = 'profile to save krle bhai'
+	# 	return statu
+	# logs = Log.objects.all()
+	# for log in logs:
+	# 	if log.card_id == int(user.card_id):
+	# 		if str(log.date) == str(datetime.datetime.now())[:10]:
+	# 			if log.time_out == None:
+	# 				log.time_out = datetime.datetime.now()
+	# 				log.save()
+	# 				statu = 'logout'
+	# 				return statu
+	# 			else:
+	# 				statu = 'nikal ja bhai ab'
+	# 				return statu
+
 	if user.name == None:
-		statu = 'profile to save krle bhai'
+		statu = 'profile to save'
 		return statu
-	logs = Log.objects.all()
-	for log in logs:
-		if log.card_id == int(user.card_id):
-			if str(log.date) == str(datetime.datetime.now())[:10]:
-				if log.time_out == None:
-					log.time_out = datetime.datetime.now()
-					log.save()
-					statu = 'logout'
-					return statu
-				else:
-					statu = 'nikal ja bhai ab'
-					return statu
 	new_log = Log(ida=user.id, card_id=user.card_id, name=user.name, phone=user.phone, date=datetime.datetime.now(),
 				  time_in=datetime.datetime.now(), status='')
 	new_log.save()
@@ -99,7 +102,12 @@ def card(request):
 	global selected
 	if request.method == 'POST':
 		if request.POST.get("sel"):
-			ids = request.POST.get('idsearch', 'kuch nahi mila')
+			ids = request.POST.get('idsearch', 'eye plus')
+			try:
+				int(ids)
+			except Exception as e:
+				stat = 'You Must Write a ID Card'
+				return redirect('/manage')
 			for user in users:
 				if user.id == int(ids):
 					stat = 'Card is Selected'
@@ -110,6 +118,11 @@ def card(request):
 			return redirect('/manage')
 		else:
 			ids = request.POST.get('idsearch')
+			try:
+				int(ids)
+			except Exception as e:
+				stat = 'You Must Select ID Card to Remove'
+				return redirect('/manage')
 			if Student.objects.filter(id=int(ids)).exists():
 				Student.objects.filter(id=int(ids)).update(
 					name=None, dob=None, phone=None, sex=None, email=None, address=None)

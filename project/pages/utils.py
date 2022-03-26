@@ -3,8 +3,6 @@ import time
 
 
 
-
-
 class TimeTracker:
     def __init__(self) -> None:
         self.primetime = time.time()
