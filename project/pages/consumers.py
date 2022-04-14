@@ -83,7 +83,7 @@ class VideoHandlerConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         ############################ when session terminated by the user 
-        self.videooutput.release()
+        
         print('[RECODEING OR CAMERA STOPED] camera terminated by the user.')
 
     async def receive(self, text_data=None, bytes_data=None):
